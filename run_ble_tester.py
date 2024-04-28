@@ -11,7 +11,7 @@ import copy
 import unicodedata
 from threading import Thread
 from binascii import hexlify
-from coverage import Coverage
+import coverage
 
 from bumble.device import Device, Peer
 from bumble.host import Host
@@ -26,128 +26,9 @@ from bumble.colors import color
 pheromone_decrease = -1
 pheromone_increase = 10
 p = None
-cov = Coverage()
+cov = coverage.Coverage(source=".")
 cov.start()
-# class FuzzingTestCase:
-#     def __init__(self):
-#         self.seedQ = []
-#         self.failureQ = []
-#         self.num_iterations = 20
-#         self.coverage_before = None
 
-#     def test_fuzzing_request(self):
-#         if hasattr(self, 'url'):
-#             for i in range(self.num_iterations):
-#                 seed = self.choose_next()
-#                 energy = self.assign_energy(seed)
-#                 get_post_probability = 0.5
-#                 for j in range(energy):
-#                     mutated_seed = self.mutate_input(seed)
-#                     request_json = copy.deepcopy(mutated_seed)
-#                     del request_json["count"]
-#                     try:
-#                         if random.random() < get_post_probability:
-#                             output = requests.post(self.url, headers=self.headers, json=request_json)
-#                         else:
-#                             output = requests.get(self.url, params=request_json)
-#                         if self.reveals_bug(mutated_seed, output):
-#                             self.failureQ.append(mutated_seed)
-#                         elif self.is_interesting():
-#                             self.seedQ.append(mutated_seed)
-#                     except requests.exceptions.RequestException as e:
-#                         self.failureQ.append(mutated_seed)
-
-#             subprocess.run(["coverage", "report", "-m"], check=True)
-#             subprocess.run(["coverage", "html"], check=True)
-
-#             with open("seed.json", "w") as f:
-#                 json.dump(self.seedQ, f)
-#             with open("failure.json", "w") as f:
-#                 json.dump(self.failureQ, f)
-#         else:
-#             print("URL attribute is not defined in the FuzzingTestCase object.")
-
-#     def choose_next(self):
-#         if self.seedQ:
-#             self.seedQ = [elem if isinstance(elem, dict) else {"count": 0} for elem in self.seedQ]
-#             self.seedQ = sorted(self.seedQ, key=lambda d: d.get("count", 0))
-#             return self.seedQ[0]
-#         else:
-#             return {"count": 0}
-
-#     def assign_energy(self, seed):
-#         return 20
-    
-#     def mutate_input(self, input_data):
-#         # Define mutation operations
-#         mutations = ("bitflip", "byteflip", "arith inc/dec", "interesting values", "random bytes", "delete bytes", "insert bytes", "overwrite bytes", "cross over")
-#         mutation_chose = random.choice(mutations)
-#         mutated_data = {}
-#         for key, value in input_data.items():
-#             if key != "count":
-#                 mutated_data[key] = self.apply_mutation(value, mutation_chose, key)
-#             if key == "count":
-#                 mutated_data[key] = 0
-#         return mutated_data
-
-#     def apply_mutation(self, data, mutation, key):
-#         # Apply mutation to data
-#         mutated_data = data.copy()
-#         if mutation == "bitflip":
-#             # Implement bitflip mutation
-#             byte_index = random.randint(0, len(mutated_data[key]) - 1)
-#             bit_index = random.randint(0, 7)
-#             mutated_data[key][byte_index] ^= 1 << bit_index
-#         elif mutation == "byteflip":
-#             # Implement byteflip mutation
-#             byte_index = random.randint(0, len(mutated_data[key]) - 1)
-#             mutated_data[key][byte_index] ^= 0xFF
-#         elif mutation == "arith inc/dec":
-#             # Implement arithmetic increment/decrement mutation
-#             byte_index = random.randint(0, len(mutated_data[key]) - 1)
-#             mutated_data[key][byte_index] += random.choice([-1, 1])
-#         elif mutation == "interesting values":
-#             # Implement mutation with interesting values
-#             mutated_data[key] = [0x00, 0x7F, 0xFF]
-#         elif mutation == "random bytes":
-#             # Implement mutation with random bytes
-#             mutated_data[key] = [random.randint(0x00, 0xFF) for _ in range(len(mutated_data[key]))]
-#         elif mutation == "delete bytes":
-#             # Implement mutation to delete bytes
-#             byte_index = random.randint(0, len(mutated_data[key]) - 1)
-#             del mutated_data[key][byte_index]
-#         elif mutation == "insert bytes":
-#             # Implement mutation to insert bytes
-#             byte_index = random.randint(0, len(mutated_data[key]))
-#             mutated_data[key].insert(byte_index, random.randint(0x00, 0xFF))
-#         elif mutation == "overwrite bytes":
-#             # Implement mutation to overwrite bytes
-#             byte_index = random.randint(0, len(mutated_data[key]) - 1)
-#             mutated_data[key][byte_index] = random.randint(0x00, 0xFF)
-#         elif mutation == "cross over":
-#             # Implement mutation with crossover
-#             byte_index = random.randint(0, len(mutated_data[key]) - 1)
-#             crossover_index = random.randint(0, len(mutated_data[key][byte_index]) - 1)
-#             mutated_data[key][byte_index] ^= (1 << crossover_index)
-#         mutated_data["count"] += 1
-#         return mutated_data
-
-#     def reveals_bug(self, seed, output):
-#         # Check if the request reveals a bug
-#         return output.status_code == 500  # Assuming a 500 status code indicates a bug
-
-#     def is_interesting(self):
-#         if self.coverage_before is None:
-#             # Need to obtain the first coverage data to start comparing
-#             self.coverage_before = subprocess.run(["coverage", "report", "-m"], check=True, capture_output=True).stdout.decode()
-#             return True
-
-#         # Get the new coverage data
-#         coverage_after  = subprocess.run(["coverage", "report", "-m"], check=True, capture_output=True).stdout.decode()
-#         # Check if coverage has increased
-#         if self.coverage_before != coverage_after:
-#             return True
-#         return False
 def start_target():
     global p
     command = ["./zephyr.exe", "--bt-dev=127.0.0.1:9000"]
@@ -188,6 +69,7 @@ class TargetEventsListener(Device.Listener):
         for service in target.services:
             await service.discover_characteristics()
             for characteristic in service.characteristics:
+                # only take note of the writeable attributes, as non-writeable attributes wouldn't be taking in inputs anyways
                 if "WRITE" in str(characteristic):
                     attributes.append(characteristic)
 
@@ -199,8 +81,10 @@ class TargetEventsListener(Device.Listener):
             self.seed_queue = json.load(f)
         # start fuzzing loop
         while True:
+            # choose seed based on lowest count value
             seed = self.choose_next()
             print(seed)
+            # assign energy based on seed's pheromone value
             energy = self.assign_energy(seed)
             for _ in range(energy):
                 data = seed
@@ -211,7 +95,6 @@ class TargetEventsListener(Device.Listener):
                 for attribute in attributes:
                     try:
                         await write_target(target, attribute, bytes(data_to_send, "ascii"))
-                        # await write_target(target, attribute, bytes("adfasfasdfasf asdadfadfasdfasfasdfaff", "ascii"))
                         await read_target(target, attribute)
                     except ProtocolError as error:
                         print(color(f'[!]  Cannot operate on attribute 0x{attribute.handle:04X}:', 'yellow'), error)
@@ -341,6 +224,7 @@ class TargetEventsListener(Device.Listener):
     
     def signal_handler(self, sig, frame):
         cov.stop()
+        cov.save()
         print(cov.report())
         print("Exiting...")
         

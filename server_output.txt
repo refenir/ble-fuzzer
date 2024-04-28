@@ -5,7 +5,7 @@
 [00:00:00.380,000] [1;33m<wrn> bt_ecc: ECC HCI commands not available[0m
 [00:00:00.380,000] [0m<inf> bt_hci_core: No ID address. App must call settings_load()[0m
 Bluetooth initialized
-[00:00:00.400,000] [0m<inf> bt_hci_core: Identity: DF:FA:8B:4F:FC:DE (random)[0m
+[00:00:00.400,000] [0m<inf> bt_hci_core: Identity: C1:99:68:16:53:97 (random)[0m
 [00:00:00.400,000] [0m<inf> bt_hci_core: HCI: version 5.0 (0x09) revision 0x0000, manufacturer 0xffff[0m
 [00:00:00.400,000] [0m<inf> bt_hci_core: LMP: version 5.0 (0x09) subver 0x0000[0m
 Advertising successfully started
@@ -13,4 +13,4 @@ Indicate VND attr 0x80ef2a8 (UUID 12345678-1234-5678-1234-56789abcdef1)
 Updated MTU: TX: 23 RX: 23 bytes
 Connected
 
-Stopped at 63.800s
+Stopped at 7.780s
