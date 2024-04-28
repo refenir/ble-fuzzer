@@ -1,0 +1,258 @@
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/home/asset/zephyrproject/zephyr/drivers/flash/flash_simulator_native.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/native/src/timer_model.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/native/src/nsi_trace.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/native/src/nsi_cmdline_common.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/native/src/nsi_cmdline.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/native/src/native_rtc.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/native/src/irq_ctrl.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/native/src/hw_counter.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/common/src/nsi_weak_stubs.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/common/src/nsi_trace_varg.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/common/src/nsi_tasks.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/common/src/nsi_hw_scheduler.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/common/src/nsi_host_trampolines.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/common/src/nsi_cpun_if.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/common/src/nsi_cpu_ctrl.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/common/src/nct.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/common/src/nce.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/NSI/common/src/main.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/banner.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/mempool.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/poll.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/timer.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/timeout.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/work.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/system_work_q.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/sem.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/queue.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/mutex.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/idle.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/sched.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/thread.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/mem_slab.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/kheap.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/init.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/fatal.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/kernel/CMakeFiles/kernel.dir/device.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/drivers/timer/CMakeFiles/drivers__timer.dir/native_posix_timer.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/drivers/timer/CMakeFiles/drivers__timer.dir/sys_clock_init.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/drivers/flash/CMakeFiles/drivers__flash.dir/flash_page_layout.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/drivers/flash/CMakeFiles/drivers__flash.dir/flash_simulator.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/drivers/console/CMakeFiles/drivers__console.dir/posix_arch_console.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/drivers/bluetooth/CMakeFiles/drivers__bluetooth.dir/hci/userchan.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/net/CMakeFiles/subsys__net.dir/buf_simple.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/net/CMakeFiles/subsys__net.dir/buf.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/crypto/CMakeFiles/subsys__bluetooth__crypto.dir/bt_crypto.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/keys.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/smp.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/gatt.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/att.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/l2cap.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/conn.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/ecc.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/crypto.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/adv.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/id.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/hci_common.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/hci_core.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/data.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/buf.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/addr.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/uuid.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/long_wq.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/host/CMakeFiles/subsys__bluetooth__host.dir/settings.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/common/CMakeFiles/subsys__bluetooth__common.dir/rpa.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/subsys/bluetooth/common/CMakeFiles/subsys__bluetooth__common.dir/bt_str.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/boards/posix/native_sim/CMakeFiles/boards__posix__native_sim.dir/posix_arch_if.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/boards/posix/native_sim/CMakeFiles/boards__posix__native_sim.dir/misc.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/boards/posix/native_sim/CMakeFiles/boards__posix__native_sim.dir/irq_handler.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/boards/posix/native_sim/CMakeFiles/boards__posix__native_sim.dir/nsi_if.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/boards/posix/native_sim/CMakeFiles/boards__posix__native_sim.dir/cpu_wait.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/boards/posix/native_sim/CMakeFiles/boards__posix__native_sim.dir/cmdline.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/soc/soc/posix/inf_clock/CMakeFiles/soc__posix__inf_clock.dir/native_tasks.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/soc/soc/posix/inf_clock/CMakeFiles/soc__posix__inf_clock.dir/soc.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/arch/arch/posix/core/CMakeFiles/arch__posix__core.dir/posix_core_nsi.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/arch/arch/posix/core/CMakeFiles/arch__posix__core.dir/thread.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/arch/arch/posix/core/CMakeFiles/arch__posix__core.dir/swap.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/arch/arch/posix/core/CMakeFiles/arch__posix__core.dir/irq.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/arch/arch/posix/core/CMakeFiles/arch__posix__core.dir/fatal.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/arch/arch/posix/core/CMakeFiles/arch__posix__core.dir/cpuhalt.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/home/asset/zephyrproject/modules/crypto/tinycrypt/lib/source/hmac_prng.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/home/asset/zephyrproject/modules/crypto/tinycrypt/lib/source/hmac.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/home/asset/zephyrproject/modules/crypto/tinycrypt/lib/source/sha256.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/home/asset/zephyrproject/modules/crypto/tinycrypt/lib/source/cmac_mode.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/home/asset/zephyrproject/modules/crypto/tinycrypt/lib/source/aes_encrypt.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/home/asset/zephyrproject/modules/crypto/tinycrypt/lib/source/aes_decrypt.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/home/asset/zephyrproject/modules/crypto/tinycrypt/lib/source/utils.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings_nvs.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings_line.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings_init.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings_store.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/bluetooth/services/ias/ias.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/bluetooth/services/hrs.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/bluetooth/services/bas.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/bluetooth/services/dis.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/tracing/tracing_none.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/storage/flash_map/flash_map_layout.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/storage/flash_map/flash_map.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/stats/stats.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/logging/backends/log_backend_native_posix.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/logging/log_output.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/logging/log_msg.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/logging/log_cache.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/logging/log_mgmt.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/logging/log_core.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/subsys/fs/nvs/nvs.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/misc/generated/configs.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/utils/bitarray.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/utils/timeutil.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/utils/rb.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/utils/hex.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/utils/dec.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/os/assert.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/os/cbprintf.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/os/cbprintf_complete.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/os/thread_entry.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/os/sem.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/os/printk.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/os/cbprintf_packaged.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/heap/heap.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/crc/crc4_sw.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/crc/crc7_sw.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/crc/crc8_sw.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/crc/crc16_sw.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/crc/crc32_sw.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/zephyr.dir/lib/crc/crc32c_sw.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/CMakeFiles/app.dir/src/cts.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/CMakeFiles/app.dir/src/main.c.gcda:Skip
+profiling:/home/asset:Cannot create directory
+profiling:/home/asset/zephyrproject/build/zephyr/CMakeFiles/offsets.dir/arch/posix/core/offsets/offsets.c.gcda:Skip

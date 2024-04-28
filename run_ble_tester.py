@@ -1,13 +1,17 @@
 import logging
 import asyncio
+import signal
+import string
 import sys
 import os
 import subprocess
 import json
 import random
 import copy
-import requests
+import unicodedata
+from threading import Thread
 from binascii import hexlify
+from coverage import Coverage
 
 from bumble.device import Device, Peer
 from bumble.host import Host
@@ -19,128 +23,143 @@ from bumble.transport import open_transport_or_link
 from bumble.utils import AsyncRunner
 from bumble.colors import color
 
+pheromone_decrease = -1
+pheromone_increase = 10
+p = None
+cov = Coverage()
+cov.start()
+# class FuzzingTestCase:
+#     def __init__(self):
+#         self.seedQ = []
+#         self.failureQ = []
+#         self.num_iterations = 20
+#         self.coverage_before = None
 
-class FuzzingTestCase:
-    def __init__(self):
-        self.seedQ = []
-        self.failureQ = []
-        self.num_iterations = 20
-        self.coverage_before = None
+#     def test_fuzzing_request(self):
+#         if hasattr(self, 'url'):
+#             for i in range(self.num_iterations):
+#                 seed = self.choose_next()
+#                 energy = self.assign_energy(seed)
+#                 get_post_probability = 0.5
+#                 for j in range(energy):
+#                     mutated_seed = self.mutate_input(seed)
+#                     request_json = copy.deepcopy(mutated_seed)
+#                     del request_json["count"]
+#                     try:
+#                         if random.random() < get_post_probability:
+#                             output = requests.post(self.url, headers=self.headers, json=request_json)
+#                         else:
+#                             output = requests.get(self.url, params=request_json)
+#                         if self.reveals_bug(mutated_seed, output):
+#                             self.failureQ.append(mutated_seed)
+#                         elif self.is_interesting():
+#                             self.seedQ.append(mutated_seed)
+#                     except requests.exceptions.RequestException as e:
+#                         self.failureQ.append(mutated_seed)
 
-    def test_fuzzing_request(self):
-        if hasattr(self, 'url'):
-            for i in range(self.num_iterations):
-                seed = self.choose_next()
-                energy = self.assign_energy(seed)
-                get_post_probability = 0.5
-                for j in range(energy):
-                    mutated_seed = self.mutate_input(seed)
-                    request_json = copy.deepcopy(mutated_seed)
-                    del request_json["count"]
-                    try:
-                        if random.random() < get_post_probability:
-                            output = requests.post(self.url, headers=self.headers, json=request_json)
-                        else:
-                            output = requests.get(self.url, params=request_json)
-                        if self.reveals_bug(mutated_seed, output):
-                            self.failureQ.append(mutated_seed)
-                        elif self.is_interesting():
-                            self.seedQ.append(mutated_seed)
-                    except requests.exceptions.RequestException as e:
-                        self.failureQ.append(mutated_seed)
+#             subprocess.run(["coverage", "report", "-m"], check=True)
+#             subprocess.run(["coverage", "html"], check=True)
 
-            subprocess.run(["coverage", "report", "-m"], check=True)
-            subprocess.run(["coverage", "html"], check=True)
+#             with open("seed.json", "w") as f:
+#                 json.dump(self.seedQ, f)
+#             with open("failure.json", "w") as f:
+#                 json.dump(self.failureQ, f)
+#         else:
+#             print("URL attribute is not defined in the FuzzingTestCase object.")
 
-            with open("seed.json", "w") as f:
-                json.dump(self.seedQ, f)
-            with open("failure.json", "w") as f:
-                json.dump(self.failureQ, f)
-        else:
-            print("URL attribute is not defined in the FuzzingTestCase object.")
+#     def choose_next(self):
+#         if self.seedQ:
+#             self.seedQ = [elem if isinstance(elem, dict) else {"count": 0} for elem in self.seedQ]
+#             self.seedQ = sorted(self.seedQ, key=lambda d: d.get("count", 0))
+#             return self.seedQ[0]
+#         else:
+#             return {"count": 0}
 
-    def choose_next(self):
-        if self.seedQ:
-            self.seedQ = [elem if isinstance(elem, dict) else {"count": 0} for elem in self.seedQ]
-            self.seedQ = sorted(self.seedQ, key=lambda d: d.get("count", 0))
-            return self.seedQ[0]
-        else:
-            return {"count": 0}
-
-    def assign_energy(self, seed):
-        return 20
+#     def assign_energy(self, seed):
+#         return 20
     
-    def mutate_input(self, input_data):
-        # Define mutation operations
-        mutations = ("bitflip", "byteflip", "arith inc/dec", "interesting values", "random bytes", "delete bytes", "insert bytes", "overwrite bytes", "cross over")
-        mutation_chose = random.choice(mutations)
-        mutated_data = {}
-        for key, value in input_data.items():
-            if key != "count":
-                mutated_data[key] = self.apply_mutation(value, mutation_chose, key)
-            if key == "count":
-                mutated_data[key] = 0
-        return mutated_data
+#     def mutate_input(self, input_data):
+#         # Define mutation operations
+#         mutations = ("bitflip", "byteflip", "arith inc/dec", "interesting values", "random bytes", "delete bytes", "insert bytes", "overwrite bytes", "cross over")
+#         mutation_chose = random.choice(mutations)
+#         mutated_data = {}
+#         for key, value in input_data.items():
+#             if key != "count":
+#                 mutated_data[key] = self.apply_mutation(value, mutation_chose, key)
+#             if key == "count":
+#                 mutated_data[key] = 0
+#         return mutated_data
 
-    def apply_mutation(self, data, mutation, key):
-        # Apply mutation to data
-        mutated_data = data.copy()
-        if mutation == "bitflip":
-            # Implement bitflip mutation
-            byte_index = random.randint(0, len(mutated_data[key]) - 1)
-            bit_index = random.randint(0, 7)
-            mutated_data[key][byte_index] ^= 1 << bit_index
-        elif mutation == "byteflip":
-            # Implement byteflip mutation
-            byte_index = random.randint(0, len(mutated_data[key]) - 1)
-            mutated_data[key][byte_index] ^= 0xFF
-        elif mutation == "arith inc/dec":
-            # Implement arithmetic increment/decrement mutation
-            byte_index = random.randint(0, len(mutated_data[key]) - 1)
-            mutated_data[key][byte_index] += random.choice([-1, 1])
-        elif mutation == "interesting values":
-            # Implement mutation with interesting values
-            mutated_data[key] = [0x00, 0x7F, 0xFF]
-        elif mutation == "random bytes":
-            # Implement mutation with random bytes
-            mutated_data[key] = [random.randint(0x00, 0xFF) for _ in range(len(mutated_data[key]))]
-        elif mutation == "delete bytes":
-            # Implement mutation to delete bytes
-            byte_index = random.randint(0, len(mutated_data[key]) - 1)
-            del mutated_data[key][byte_index]
-        elif mutation == "insert bytes":
-            # Implement mutation to insert bytes
-            byte_index = random.randint(0, len(mutated_data[key]))
-            mutated_data[key].insert(byte_index, random.randint(0x00, 0xFF))
-        elif mutation == "overwrite bytes":
-            # Implement mutation to overwrite bytes
-            byte_index = random.randint(0, len(mutated_data[key]) - 1)
-            mutated_data[key][byte_index] = random.randint(0x00, 0xFF)
-        elif mutation == "cross over":
-            # Implement mutation with crossover
-            byte_index = random.randint(0, len(mutated_data[key]) - 1)
-            crossover_index = random.randint(0, len(mutated_data[key][byte_index]) - 1)
-            mutated_data[key][byte_index] ^= (1 << crossover_index)
-        mutated_data["count"] += 1
-        return mutated_data
+#     def apply_mutation(self, data, mutation, key):
+#         # Apply mutation to data
+#         mutated_data = data.copy()
+#         if mutation == "bitflip":
+#             # Implement bitflip mutation
+#             byte_index = random.randint(0, len(mutated_data[key]) - 1)
+#             bit_index = random.randint(0, 7)
+#             mutated_data[key][byte_index] ^= 1 << bit_index
+#         elif mutation == "byteflip":
+#             # Implement byteflip mutation
+#             byte_index = random.randint(0, len(mutated_data[key]) - 1)
+#             mutated_data[key][byte_index] ^= 0xFF
+#         elif mutation == "arith inc/dec":
+#             # Implement arithmetic increment/decrement mutation
+#             byte_index = random.randint(0, len(mutated_data[key]) - 1)
+#             mutated_data[key][byte_index] += random.choice([-1, 1])
+#         elif mutation == "interesting values":
+#             # Implement mutation with interesting values
+#             mutated_data[key] = [0x00, 0x7F, 0xFF]
+#         elif mutation == "random bytes":
+#             # Implement mutation with random bytes
+#             mutated_data[key] = [random.randint(0x00, 0xFF) for _ in range(len(mutated_data[key]))]
+#         elif mutation == "delete bytes":
+#             # Implement mutation to delete bytes
+#             byte_index = random.randint(0, len(mutated_data[key]) - 1)
+#             del mutated_data[key][byte_index]
+#         elif mutation == "insert bytes":
+#             # Implement mutation to insert bytes
+#             byte_index = random.randint(0, len(mutated_data[key]))
+#             mutated_data[key].insert(byte_index, random.randint(0x00, 0xFF))
+#         elif mutation == "overwrite bytes":
+#             # Implement mutation to overwrite bytes
+#             byte_index = random.randint(0, len(mutated_data[key]) - 1)
+#             mutated_data[key][byte_index] = random.randint(0x00, 0xFF)
+#         elif mutation == "cross over":
+#             # Implement mutation with crossover
+#             byte_index = random.randint(0, len(mutated_data[key]) - 1)
+#             crossover_index = random.randint(0, len(mutated_data[key][byte_index]) - 1)
+#             mutated_data[key][byte_index] ^= (1 << crossover_index)
+#         mutated_data["count"] += 1
+#         return mutated_data
 
-    def reveals_bug(self, seed, output):
-        # Check if the request reveals a bug
-        return output.status_code == 500  # Assuming a 500 status code indicates a bug
+#     def reveals_bug(self, seed, output):
+#         # Check if the request reveals a bug
+#         return output.status_code == 500  # Assuming a 500 status code indicates a bug
 
-    def is_interesting(self):
-        if self.coverage_before is None:
-            # Need to obtain the first coverage data to start comparing
-            self.coverage_before = subprocess.run(["coverage", "report", "-m"], check=True, capture_output=True).stdout.decode()
-            return True
+#     def is_interesting(self):
+#         if self.coverage_before is None:
+#             # Need to obtain the first coverage data to start comparing
+#             self.coverage_before = subprocess.run(["coverage", "report", "-m"], check=True, capture_output=True).stdout.decode()
+#             return True
 
-        # Get the new coverage data
-        coverage_after  = subprocess.run(["coverage", "report", "-m"], check=True, capture_output=True).stdout.decode()
-        # Check if coverage has increased
-        if self.coverage_before != coverage_after:
-            return True
-        return False
-
+#         # Get the new coverage data
+#         coverage_after  = subprocess.run(["coverage", "report", "-m"], check=True, capture_output=True).stdout.decode()
+#         # Check if coverage has increased
+#         if self.coverage_before != coverage_after:
+#             return True
+#         return False
+def start_target():
+    global p
+    command = ["./zephyr.exe", "--bt-dev=127.0.0.1:9000"]
+    try:
+        with open("server_output.txt", "w") as out_file, open("server_error.txt", "w") as error_file:
+            p=subprocess.Popen(command,
+                               stdout=out_file,
+                               stderr=error_file)
+        print("Zephyr started")
+    except Exception as e:
+        print("Error starting Zephyr", str(e))
+        return None
 
 class TargetEventsListener(Device.Listener):
     def __init__(self):
@@ -148,7 +167,8 @@ class TargetEventsListener(Device.Listener):
         self.got_advertisement = False
         self.advertisement = None
         self.connection = None
-        self.fuzz_test_case = FuzzingTestCase()
+        self.coverage_before = None
+        self.seed_queue = []
 
     def on_advertisement(self, advertisement):
         print(f'{color("Advertisement", "cyan")} <-- {color(advertisement.address, "yellow")}')
@@ -157,6 +177,7 @@ class TargetEventsListener(Device.Listener):
 
     @AsyncRunner.run_in_task()
     async def on_connection(self, connection):
+        global pheromone_decrease, pheromone_increase, p
         print(color(f'[OK] Connected!', 'green'))
         self.connection = connection
 
@@ -165,32 +186,165 @@ class TargetEventsListener(Device.Listener):
         attributes = []
         await target.discover_services()
         for service in target.services:
-            attributes.append(service)
             await service.discover_characteristics()
             for characteristic in service.characteristics:
-                attributes.append(characteristic)
-                await characteristic.discover_descriptors()
-                for descriptor in characteristic.descriptors:
-                    attributes.append(descriptor)
+                if "WRITE" in str(characteristic):
+                    attributes.append(characteristic)
 
         print(color('[OK] Services discovered', 'green'))
         show_services(target.services)
-
-        print('=== Read/Write Attributes (Handles)')
-        for attribute in attributes:
-            try:
-                await write_target(target, attribute, [0x01])
-                await read_target(target, attribute)
-            except ProtocolError as error:
-                print(color(f'[!]  Cannot operate on attribute 0x{attribute.handle:04X}:', 'yellow'), error)
-            except TimeoutError:
-                print(color('[X] Operation Timeout', 'red'))
+        signal.signal(signal.SIGINT, self.signal_handler)
+        print('=== Fuzzer start')
+        with open('seed.json', 'r') as f:
+            self.seed_queue = json.load(f)
+        # start fuzzing loop
+        while True:
+            seed = self.choose_next()
+            print(seed)
+            energy = self.assign_energy(seed)
+            for _ in range(energy):
+                data = seed
+                # mutate data
+                mutated_data = self.mutate_input(data)
+                data_to_send = mutated_data["payload"]
+                # send request
+                for attribute in attributes:
+                    try:
+                        await write_target(target, attribute, bytes(data_to_send, "ascii"))
+                        # await write_target(target, attribute, bytes("adfasfasdfasf asdadfadfasdfasfasdfaff", "ascii"))
+                        await read_target(target, attribute)
+                    except ProtocolError as error:
+                        print(color(f'[!]  Cannot operate on attribute 0x{attribute.handle:04X}:', 'yellow'), error)
+                    except TimeoutError:
+                        print(color('[X] Operation Timeout', 'red'))
+                        p.kill()
+                        print("Zephyr crashed, restarting...")
+                        start_target()
+                        continue
+                cov.stop()
+                cov.save()
+                if self.is_interesting():
+                    self.seed_queue.append(mutated_data)
+                    self.seed_queue[0]["pheromone"] += pheromone_increase
+                cov.start()
 
         print('---------------------------------------------------------------')
         print(color('[OK] Communication Finished', 'green'))
         print('---------------------------------------------------------------')
+        
+    def choose_next(self):
+        if len(self.seed_queue) != 0:
+            self.seed_queue.sort(key=lambda x: x["count"])
+            self.seed_queue[0]["count"] += 1
+            if self.seed_queue[0]["pheromone"] > 0:
+                self.seed_queue[0]["pheromone"] += pheromone_decrease
+            print(self.seed_queue[0]["pheromone"])
+            return self.seed_queue[0]
+        return "Seed queue is empty"
 
-        self.fuzz_test_case.test_fuzzing_request()
+    def assign_energy(self, seed):
+        # ant colony optimisation
+        return seed["pheromone"] + 1
+    
+    def mutate_input(self, input_data):
+        # Define mutation operations
+        mutations = ("bitflip", "byteflip", "arith inc/dec", "interesting values", "random bytes", "delete bytes", "insert bytes", "overwrite bytes", "cross over")
+        mutation_chose = random.choice(mutations)
+        mutated_data = {}
+        for key, value in input_data.items():
+            if key == "count":
+                mutated_data[key] = 0
+            elif key == "pheromone":
+                mutated_data[key] = 10
+            else:
+                mutated_data[key] = self.apply_mutation(value, mutation_chose, key)
+            
+        return mutated_data
+
+    def apply_mutation(self, data, mutation, key):
+        if data == "" or data is None:
+            data = ''.join(random.choice(string.printable) for i in range(random.randint(1,50)))
+        # Apply mutation to data
+        mutated_data = bytearray()
+        mutated_data.extend(data.encode("ascii"))
+        if mutation == "bitflip":
+            n = random.choice((1,2,4))
+            for i in range(0, len(mutated_data)*8, 1):
+                byte_index = i // 8
+                bit_index = i % 8
+                for _ in range(n):
+                    if i < len(mutated_data)*8:
+                        mutated_data[byte_index] ^= (1 << (bit_index))
+        elif mutation == "byteflip":
+            n = random.choice((1,2,4))
+            for i in range(0, len(mutated_data), 1):
+                for j in range(n):
+                    if (i+j) < len(mutated_data):
+                        mutated_data[i+j] ^= 0xFF
+        elif mutation == "arith inc/dec":
+            n = random.choice((1,2,4))
+            operator = random.choice((1, -1))
+            for i in range(0, len(mutated_data), 1):
+                for j in range(n):
+                    if (i+j) < len(mutated_data):
+                        mutated_data[i+j] = (mutated_data[i+j] + operator) % 256
+        elif mutation == "interesting values":
+            interesting_values = (0x00, 0xFF, 0x7F, 0x80, 0x01, 0x7E, 0x7D, 0x7C, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F)
+            n = random.choice((1,2,4))
+            for i in range(0, len(mutated_data), 1):
+                for j in range(n):
+                    if (i+j) < len(mutated_data):
+                        mutated_data[i+j] = random.choice(interesting_values)
+        elif mutation == "random bytes":
+            byte_index = random.randint(0, len(mutated_data)-1)
+            mutated_data[byte_index] = random.randint(0, 255)
+        elif mutation == "delete bytes":
+            size = random.randint(1, 4)
+            start = random.randint(0, len(mutated_data))
+            del mutated_data[start:start+size]
+        elif mutation == "insert bytes":
+            size = random.randint(1, 4)
+            start = random.randint(0, len(mutated_data))
+            mutated_data[start:start] = bytearray(random.sample(range(256), k=size))
+        elif mutation == "overwrite bytes":
+            size = random.randint(1, 4)
+            start = random.randint(0, len(mutated_data))
+            mutated_data[start:start+size] = bytearray(random.sample(range(256), k=size))
+        elif mutation == "cross over":
+            data2 = random.choice(self.seed_queue)
+            other_data = bytearray()
+            other_data.extend(data2[key].encode("ascii"))
+            if len(other_data) < len(mutated_data):
+                splice_loc = random.randint(0, len(other_data))
+            else:
+                splice_loc = random.randint(0, len(mutated_data))
+            mutated_data[splice_loc:] = other_data[splice_loc:]
+        mutated_data = unicodedata.normalize("NFKD", bytes(mutated_data).decode("ascii", errors="ignore"))
+        if mutated_data == "" or mutated_data is None:
+            mutated_data = ''.join(random.choice(string.printable) for i in range(random.randint(1,50))) 
+        print("data:", mutated_data)
+        return mutated_data
+
+    def is_interesting(self):
+        # Get the coverage data before
+        if self.coverage_before is None:
+            self.coverage_before = cov.json_report(pretty_print=True)
+            return True
+
+        # Get the new coverage data
+        coverage_after = cov.json_report(pretty_print=True)
+        # Check if coverage has increased
+        if self.coverage_before != coverage_after:
+            self.coverage_before = coverage_after
+            return True
+        return False
+    
+    def signal_handler(self, sig, frame):
+        cov.stop()
+        print(cov.report())
+        print("Exiting...")
+        
+        exit(0)   
 
 
 async def write_target(target, attribute, bytes):
@@ -216,8 +370,8 @@ async def read_target(target, attribute):
     except TimeoutError:
         raise TimeoutError('Read Timeout')
 
-
 async def main():
+    global p
     if len(sys.argv) != 2:
         print('Usage: run_controller.py <transport-address>')
         print('example: ./run_ble_tester.py tcp-server:0.0.0.0:9000')
@@ -240,6 +394,8 @@ async def main():
 
             await device.power_on()
             await device.start_scanning()
+
+            start_target()
 
             print('Waiting Advertisement from BLE Target')
             while not device.listener.got_advertisement:

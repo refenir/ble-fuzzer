@@ -1,8 +1,1 @@
-{
-  "key": "value",
-  "array": [1, 2, 3],
-  "nested": {
-    "nested_key": "nested_value"
-  }
-}
-
+[{"pheromone":10, "count": 0, "payload": "Lore"}, {"pheromone":10, "count": 0, "payload": "THE"}]
