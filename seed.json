@@ -1,0 +1,8 @@
+{
+  "key": "value",
+  "array": [1, 2, 3],
+  "nested": {
+    "nested_key": "nested_value"
+  }
+}
+

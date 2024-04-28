@@ -1,0 +1,7 @@
+{
+    "name": "Bumble-LEA",
+    "keystore": "JsonKeyStore",
+    "address": "F0:F1:F2:F3:F4:FA",
+    "class_of_device": 2376708,
+    "advertising_interval": 100
+}
